@@ -51,6 +51,39 @@ const getCategories = async () => {
   return result.data;
 };
 
+const getBusinessList = async () => {
+  const query = `
+   query getBusinessList {
+  businessLists {
+    id
+    name
+    email
+    address
+    about
+    contactPerson
+    category {
+      name
+    }
+    images {
+      url
+    }
+  }
+}
+  `;
+
+  const response = await fetch(MASTER_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ query }),
+  });
+
+  const result = await response.json();
+  console.log(result, "res");
+  return result.data;
+};
+
 export default {
-  getSlider, getCategories
+  getSlider, getCategories,getBusinessList
 };
